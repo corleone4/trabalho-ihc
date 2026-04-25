@@ -8,19 +8,25 @@ import Consultas from "./pages/Consultas";
 import Prontuario from "./pages/Prontuario";
 import Documentos from "./pages/Documentos";
 
+import Layout from "./Layout";
+
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/cadastro-paciente" element={<CadastroPaciente />} />
-        <Route path="/cadastro-medico" element={<CadastroMedico />} />
-        <Route path="/agendamento" element={<Agendamento />} />
-        <Route path="/consultas" element={<Consultas />} />
-        <Route path="/prontuario" element={<Prontuario />} />
-        <Route path="/documentos" element={<Documentos />} />
-      </Routes>
-    </div>
+    <Routes>
+
+      {/* SEM NAVBAR */}
+      <Route path="/" element={<Login />} />
+      
+
+      {/* COM NAVBAR */}
+      <Route path="/consultas" element={<Layout><Consultas /></Layout>} />
+      <Route path="/cadastro-paciente" element={<Layout><CadastroPaciente /></Layout>} />
+      <Route path="/agendamento" element={<Layout><Agendamento /></Layout>} />
+      <Route path="/cadastro-medico" element={<Layout><CadastroMedico /></Layout>} />
+      <Route path="/prontuario" element={<Layout><Prontuario /></Layout>} />
+      <Route path="/documentos" element={<Layout><Documentos /></Layout>} />
+
+    </Routes>
   );
 }
 

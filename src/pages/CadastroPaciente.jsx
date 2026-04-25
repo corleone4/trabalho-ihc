@@ -4,16 +4,20 @@ import { useState } from "react";
 export default function CadastroPaciente() {
   const navigate = useNavigate();
 
-  const [confirmarsenha, setConfirmarSenha] = useState("")
-
   const [form, setForm] = useState({
     nome: "",
+    cpf: "",
     email: "",
-    senha:"",
     telefone: "",
     nascimento: "",
+    sexo: "",
+    logradouro: "",
+    numero: "",
+    bairro: "",
+    cidade: "",
   });
 
+  const [confirmar, setConfirmar] = useState("");
   const [erro, setErro] = useState("");
 
   function handleChange(e) {
@@ -29,13 +33,12 @@ export default function CadastroPaciente() {
       return;
     }
 
-    if (form.senha != confirmarsenha){
-        setErro("As senhas não correspondem.");
-        return;
+    if (form.senha !== confirmar) {
+      setErro("As senhas não coincidem.");
+      return;
     }
 
     const pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
-
     pacientes.push(form);
 
     localStorage.setItem("pacientes", JSON.stringify(pacientes));
@@ -45,105 +48,145 @@ export default function CadastroPaciente() {
   }
 
   return (
-    <div className="flex min-h-screen">
-      
-      {/* IMAGEM LATERAL */}
-      <div className="hidden md:flex w-1/2">
-        <img
-          src="https://images.unsplash.com/photo-1576091160550-2173dba999ef"
-          alt="Paciente"
-          className="w-full h-full object-cover"
-        />
+    <div className="max-w-4xl mx-auto">
+
+      {/* HEADER */}
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold text-gray-800">
+          Cadastro de Paciente 🧍‍♂️
+        </h2>
+        <p className="text-gray-500 mt-1">
+          Registre um novo paciente no sistema da clínica
+        </p>
       </div>
 
-      {/* FORMULÁRIO */}
-      <div className="flex items-center justify-center w-full md:w-1/2 bg-gray-100 p-6">
-        
-        <form
-          onSubmit={cadastrar}
-          className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md flex flex-col gap-3"
-        >
-          
-          <h2 className="text-2xl font-bold text-center text-blue-600">
-            Cadastro de Paciente 🧍‍♂️
-          </h2>
+      {/* FORM */}
+      <form
+        onSubmit={cadastrar}
+        className="bg-white p-8 rounded-2xl shadow-md flex flex-col gap-6"
+      >
 
-          <p className="text-center text-gray-500 mb-4">
-            Preencha seus dados para continuar
-          </p>
+        {/* DADOS PESSOAIS */}
+        <div>
+          <h3 className="text-lg font-semibold text-gray-700 mb-3">
+            Dados pessoais
+          </h3>
 
-          {/* Nome */}
-          <input
-            name="nome"
-            placeholder="Nome completo"
-            className="border p-2 rounded focus:ring-2 focus:ring-blue-400"
-            onChange={handleChange}
-          />
+          <div className="grid md:grid-cols-2 gap-4">
 
-          {/* Email */}
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            className="border p-2 rounded focus:ring-2 focus:ring-blue-400"
-            onChange={handleChange}
-          />
+            <div>
+              <label className="label">Nome completo</label>
+              <input name="nome" className="input" onChange={handleChange} />
+            </div>
 
-          <input
-            name="senha"
-            type="password"
-            placeholder="Senha"
-            className="border p-2 rounded focus:ring-2 focus:ring-blue-400"
-            onChange={handleChange}
-          />
-          <input
-            name="confirmarsenha"
-            type="password"
-            placeholder="Confirmar Senha"
-            className="border p-2 rounded focus:ring-2 focus:ring-blue-400"
-            onChange={(e) => setConfirmarSenha(e.target.value)}
-          />
+            <div>
+              <label className="label">CPF</label>
+              <input name="cpf" className="input" onChange={handleChange} />
+            </div>
 
-          {/* Telefone */}
-          <input
-            name="telefone"
-            placeholder="Telefone"
-            className="border p-2 rounded focus:ring-2 focus:ring-blue-400"
-            onChange={handleChange}
-          />
+            <div>
+              <label className="label">Email</label>
+              <input name="email" type="email" className="input" onChange={handleChange} />
+            </div>
 
-          {/* Data nascimento */}
-          <input
-            name="nascimento"
-            type="date"
-            className="border p-2 rounded focus:ring-2 focus:ring-blue-400"
-            onChange={handleChange}
-          />
+            <div>
+              <label className="label">Telefone</label>
+              <input name="telefone" className="input" onChange={handleChange} />
+            </div>
 
-          {/* ERRO */}
-          {erro && (
-            <p className="text-red-500 text-sm">{erro}</p>
-          )}
+            <div>
+              <label className="label">Data de nascimento</label>
+              <input type="date" name="nascimento" className="input" onChange={handleChange} />
+            </div>
 
-          {/* BOTÃO */}
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded transition"
-          >
-            Cadastrar
-          </button>
+            <div>
+              <label className="label">Sexo</label>
+              <select name="sexo" className="input" onChange={handleChange}>
+                <option value="">Selecione</option>
+                <option>Masculino</option>
+                <option>Feminino</option>
+                <option>Outro</option>
+              </select>
+            </div>
 
-          {/* VOLTAR */}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-lg font-semibold text-gray-700 mb-3">
+            Endereço
+          </h3>
+
+          <div className="grid md:grid-cols-2 gap-4">
+
+            <div className="md:col-span-2">
+              <label className="label">Logradouro</label>
+              <input
+                name="logradouro"
+                placeholder="Rua, avenida..."
+                className="input"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div>
+              <label className="label">Número</label>
+              <input
+                name="numero"
+                placeholder="123"
+                className="input"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div>
+              <label className="label">Bairro</label>
+              <input
+                name="bairro"
+                className="input"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="label">Cidade</label>
+              <input
+                name="cidade"
+                className="input"
+                onChange={handleChange}
+              />
+            </div>
+
+          </div>
+        </div>
+
+        {/* ERRO */}
+        {erro && (
+          <div className="bg-red-50 border border-red-200 text-red-600 p-3 rounded">
+            {erro}
+          </div>
+        )}
+
+        {/* AÇÕES */}
+        <div className="border-t pt-4 mt-6 flex justify-end gap-3">
+
           <button
             type="button"
-            onClick={() => navigate("/")}
-            className="text-blue-600 text-sm hover:underline"
+            onClick={() => navigate("/consultas")}
+            className="px-4 py-2 text-gray-600 hover:text-blue-600"
           >
-            Voltar para login
+            Cancelar
           </button>
 
-        </form>
-      </div>
+          <button
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow-sm"
+          >
+            Cadastrar Paciente
+          </button>
+
+        </div>
+
+      </form>
     </div>
   );
 }

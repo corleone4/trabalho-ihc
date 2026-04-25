@@ -16,7 +16,7 @@ export default function Login() {
 
   return (
     <div className="flex min-h-screen">
-      
+
       {/* LADO ESQUERDO (imagem) */}
       <div className="hidden md:flex w-1/2">
         <img
@@ -28,9 +28,9 @@ export default function Login() {
 
       {/* LADO DIREITO (login) */}
       <div className="flex flex-col justify-center items-center w-full md:w-1/2 bg-gray-100 p-6">
-        
+
         <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
-          
+
           <h1 className="text-2xl font-bold text-center text-blue-600">
             SmartClinic 🩺
           </h1>
@@ -59,12 +59,9 @@ export default function Login() {
             Entrar
           </button>
 
-          <button
-            onClick={() => navigate("/cadastro-paciente")}
-            className="w-full mt-3 text-blue-600 hover:underline text-sm"
-          >
-            Criar conta
-          </button>
+          <div className="text-center text-gray-400 text-sm mt-3">
+            Acesso restrito à equipe da clínica
+          </div>
 
         </div>
 

@@ -22,6 +22,7 @@ function App() {
       <Route path="/consultas" element={<Layout><Consultas /></Layout>} />
       <Route path="/cadastro-paciente" element={<Layout><CadastroPaciente /></Layout>} />
       <Route path="/agendamento" element={<Layout><Agendamento /></Layout>} />
+      <Route path="/agendamento/:id" element={<Layout><Agendamento /></Layout>} />
       <Route path="/cadastro-medico" element={<Layout><CadastroMedico /></Layout>} />
       <Route path="/prontuario" element={<Layout><Prontuario /></Layout>} />
       <Route path="/documentos" element={<Layout><Documentos /></Layout>} />
